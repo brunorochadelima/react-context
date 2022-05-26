@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "pages/Login";
 import Feira from "pages/Feira";
-import {UsuarioProvider} from "common/contexts/Usuario";
+import { UsuarioProvider } from "common/contexts/Usuario";
 import Carrinho from "pages/Carrinho";
 
 export default function Routes() {
@@ -13,10 +13,10 @@ export default function Routes() {
           <Route exact path="/">
             <Login />
           </Route>
+          <Route path="/feira">
+            <Feira />
+          </Route>
         </UsuarioProvider>
-        <Route path="/feira">
-          <Feira />
-        </Route>
         <Route path="/carrinho">
           <Carrinho />
         </Route>
