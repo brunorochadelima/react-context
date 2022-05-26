@@ -1,3 +1,17 @@
+import React from "react";
+import { createContext } from "react";
+export const CarrinhoContext = createContext();
+
+export const CarrinhoProvider = ({ children }) => {
+  const [carrinho, setCarrinho] = React.useState([]);
+
+  return (
+    <CarrinhoContext.Provider value={{ carrinho, setCarrinho }}>
+      {children}
+    </CarrinhoContext.Provider>
+  );
+};
+
 // import { createContext, useContext, useEffect, useState } from 'react';
 // import { usePagamento } from './Pagamento';
 // import { UsuarioContext } from './Usuario/';
@@ -54,7 +68,7 @@
 //       novoProduto.quantidade = 1;
 //       novoCarrinho.push(novoProduto);
 //       return setCarrinho(novoCarrinho);
-//     } 
+//     }
 //     novoCarrinho = mudarQuantidade(novoProduto.id, 1);
 //     setCarrinho(novoCarrinho);
 //   };
@@ -66,7 +80,7 @@
 //     if (ultimo) {
 //       novoCarrinho = carrinho.filter(item => item.id !== id);
 //       return setCarrinho(novoCarrinho);
-//     } 
+//     }
 //     novoCarrinho = mudarQuantidade(id, -1);
 //     setCarrinho(novoCarrinho);
 //   }

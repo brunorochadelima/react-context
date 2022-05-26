@@ -4,6 +4,7 @@ import Login from "pages/Login";
 import Feira from "pages/Feira";
 import { UsuarioProvider } from "common/contexts/Usuario";
 import Carrinho from "pages/Carrinho";
+import { CarrinhoProvider } from "common/contexts/Carrinho";
 
 export default function Routes() {
   return (
@@ -13,9 +14,11 @@ export default function Routes() {
           <Route exact path="/">
             <Login />
           </Route>
-          <Route path="/feira">
-            <Feira />
-          </Route>
+          <CarrinhoProvider>
+            <Route path="/feira">
+              <Feira />
+            </Route>
+          </CarrinhoProvider>
         </UsuarioProvider>
         <Route path="/carrinho">
           <Carrinho />

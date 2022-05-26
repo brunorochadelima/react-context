@@ -3,8 +3,11 @@ import { memo } from "react";
 import { IconButton } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
+import { useContext } from "react";
+import { CarrinhoContext } from "common/contexts/Carrinho";
 
 function Produto({ nome, foto, id, valor, unidade }) {
+  const { carrinho, setCarrinho } = useContext(CarrinhoContext);
   return (
     <Container>
       <div>
