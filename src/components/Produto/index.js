@@ -6,8 +6,31 @@ import RemoveIcon from "@material-ui/icons/Remove";
 import { useContext } from "react";
 import { CarrinhoContext } from "common/contexts/Carrinho";
 
-function Produto({ nome, foto, id, valor, unidade }) {
+function Produto({ nome, foto, id, valor }) {
   const { carrinho, setCarrinho } = useContext(CarrinhoContext);
+
+  function adicionarProduto(novoProduto) {
+    const temOProduto = carrinho.some(
+      (itemDoCarrinho) => itemDoCarrinho.id === novoProduto.id
+    );
+
+    if (!temOProduto) {
+      novoProduto.quantidade = 1;
+      return setCarrinho((carrinhoAnterior) => [
+        ...carrinhoAnterior,
+        novoProduto,
+      ]);
+    }
+
+    setCarrinho((carrinhoAnterior) =>
+      carrinhoAnterior.map((itemDoCarrinho) => {
+        if (itemDoCarrinho.id === novoProduto.id)
+          itemDoCarrinho.quantidade += 1;
+        return itemDoCarrinho;
+      })
+    );
+  }
+
   return (
     <Container>
       <div>
@@ -20,7 +43,7 @@ function Produto({ nome, foto, id, valor, unidade }) {
         <IconButton color="secondary">
           <RemoveIcon />
         </IconButton>
-        <IconButton>
+        <IconButton onClick={() => adicionarProduto({ nome, foto, id, valor })}>
           <AddIcon />
         </IconButton>
       </div>

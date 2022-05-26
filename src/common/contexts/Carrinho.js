@@ -1,6 +1,7 @@
 import React from "react";
 import { createContext } from "react";
 export const CarrinhoContext = createContext();
+CarrinhoContext.displayName = "Carrinho";
 
 export const CarrinhoProvider = ({ children }) => {
   const [carrinho, setCarrinho] = React.useState([]);
