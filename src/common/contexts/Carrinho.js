@@ -13,7 +13,6 @@ export const CarrinhoProvider = ({ children }) => {
   );
 };
 
-
 // Hook personalizado para isolar a responsabilidade de adicionar produto no carrinho
 export const useCarrinhoContext = () => {
   const { carrinho, setCarrinho } = useContext(CarrinhoContext);
@@ -40,5 +39,22 @@ export const useCarrinhoContext = () => {
     );
   }
 
-  return { carrinho, setCarrinho, adicionarProduto };
+  function removerProduto(id) {
+    const produto = carrinho.find((itemDoCarrinho) => itemDoCarrinho.id === id);
+    const ehOUltimo = produto.quantidade === 1;
+    if (ehOUltimo) {
+      return setCarrinho((carrinhoAnterior) =>
+        carrinhoAnterior.filter((itemDoCarrinho) => itemDoCarrinho.id !== id)
+      );
+    }
+
+    setCarrinho((carrinhoAnterior) =>
+      carrinhoAnterior.map((itemDoCarrinho) => {
+        if (itemDoCarrinho.id === id) itemDoCarrinho.quantidade -= 1;
+        return itemDoCarrinho;
+      })
+    );
+  }
+
+  return { carrinho, setCarrinho, adicionarProduto, removerProduto };
 };
