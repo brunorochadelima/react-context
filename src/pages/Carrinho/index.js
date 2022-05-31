@@ -38,7 +38,7 @@ function Carrinho() {
           <span> R$ </span>
         </div>
       </TotalContainer>
-      <Button
+      <Button disableElevation size="large"
         onClick={() => {
           setOpenSnackbar(true);
         }}
@@ -46,7 +46,7 @@ function Carrinho() {
         variant="contained"
       >
         Comprar
-      </Button>
+      </Button >
       <Snackbar
         anchorOrigin={{
           vertical: "top",
