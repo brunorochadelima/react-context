@@ -6,6 +6,7 @@ CarrinhoContext.displayName = "Carrinho";
 export const CarrinhoProvider = ({ children }) => {
   const [carrinho, setCarrinho] = React.useState([]);
   const [quantidadeCarrinho, setQuantidadeCarrinho] = React.useState();
+  const [valorTotalCarrinho, setValorTotalCarrinho] = React.useState(0);
 
   return (
     <CarrinhoContext.Provider
@@ -14,6 +15,8 @@ export const CarrinhoProvider = ({ children }) => {
         setCarrinho,
         quantidadeCarrinho,
         setQuantidadeCarrinho,
+        valorTotalCarrinho,
+        setValorTotalCarrinho,
       }}
     >
       {children}
@@ -23,8 +26,14 @@ export const CarrinhoProvider = ({ children }) => {
 
 // Hook personalizado para isolar a responsabilidade de adicionar produto no carrinho
 export const useCarrinhoContext = () => {
-  const { carrinho, setCarrinho, quantidadeCarrinho, setQuantidadeCarrinho } =
-    useContext(CarrinhoContext);
+  const {
+    carrinho,
+    setCarrinho,
+    quantidadeCarrinho,
+    setQuantidadeCarrinho,
+    valorTotalCarrinho,
+    setValorTotalCarrinho,
+  } = useContext(CarrinhoContext);
 
   function mudarQuantidade(id, quantidade) {
     return carrinho.map((itemDoCarrinho) => {
@@ -62,12 +71,16 @@ export const useCarrinhoContext = () => {
   }
 
   React.useEffect(() => {
-    const novaQuantidade = carrinho.reduce(
-      (acumulador, produto) => acumulador + produto.quantidade,
-      0
+    const { novoTotal, novaQuantidade } = carrinho.reduce(
+      (acumulador, produto) => ({
+        novaQuantidade: acumulador.novaQuantidade + produto.quantidade,
+        novoTotal: acumulador.novoTotal + produto.valor * produto.quantidade,
+      }),
+      { novoTotal: 0, novaQuantidade: 0 }
     );
     setQuantidadeCarrinho(novaQuantidade);
-  }, [carrinho, setQuantidadeCarrinho]);
+    setValorTotalCarrinho(novoTotal);
+  }, [carrinho, setQuantidadeCarrinho, setValorTotalCarrinho]);
 
   return {
     carrinho,
@@ -75,5 +88,6 @@ export const useCarrinhoContext = () => {
     adicionarProduto,
     removerProduto,
     quantidadeCarrinho,
+    valorTotalCarrinho,
   };
 };
