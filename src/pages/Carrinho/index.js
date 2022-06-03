@@ -21,7 +21,7 @@ import {
 
 function Carrinho() {
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  const { carrinho, valorTotalCarrinho } = useCarrinhoContext();
+  const { carrinho, valorTotalCarrinho, efetuarCompra } = useCarrinhoContext();
   const { saldo = 0 } = useContext(UsuarioContext);
   const history = useHistory();
   const total = useMemo(() => saldo - valorTotalCarrinho, [saldo, valorTotalCarrinho]);
@@ -63,10 +63,11 @@ function Carrinho() {
         </div>
       </TotalContainer>
       <Button
-        disabled={total < 0}
+        disabled={total < 0 || carrinho.length === 0}
         disableElevation
         size="large"
         onClick={() => {
+          efetuarCompra();
           setOpenSnackbar(true);
         }}
         color="primary"
