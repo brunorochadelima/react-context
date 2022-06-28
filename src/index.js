@@ -13,7 +13,15 @@ const theme = createTheme({
     secondary: {
       main: '#FF7070'
     },
-  }
+  },
+
+  typography: {
+    fontSize: 16,
+  },
+
+  shape: {
+    borderRadius: 25,
+  },
 })
 
 ReactDOM.render(

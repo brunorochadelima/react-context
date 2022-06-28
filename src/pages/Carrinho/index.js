@@ -66,6 +66,7 @@ function Carrinho() {
         disabled={total < 0 || carrinho.length === 0}
         disableElevation
         size="large"
+        
         onClick={() => {
           efetuarCompra();
           setOpenSnackbar(true);
